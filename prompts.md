@@ -1,6 +1,6 @@
 # Step 5: Prompt Revision History
 
-This document records the prompt and system instruction revisions for the workflow **customer support email drafting for an online store**. The revisions are based on actual prototype behavior observed during testing, especially the issue where the model asked for an order number even though the provided business context was already enough to draft a useful reply.
+This document records the prompt and system instruction revisions for the workflow **customer support email drafting for an online store**. The revisions are based on actual prototype behavior observed during testing, especially the delayed-order case from the evaluation set, where the model asked for an order number even though the provided business context was already sufficient to produce a useful first-pass draft. In this workflow, the model is intended to support a human agent by producing a draft for review, not to send a fully autonomous final reply.
 
 ## Initial Version
 
@@ -18,11 +18,11 @@ If the request is policy-sensitive or risky, write a cautious draft that avoids 
 
 ### What Changed and Why
 
-This was the first working version used to build the prototype. The goal was to keep the instruction simple while telling the model to stay professional, avoid hallucinations, and request missing information when necessary.
+This was the first working version used to build the prototype. The goal was to keep the instruction simple while telling the model to stay professional, avoid hallucinations, and request missing information when necessary. At this stage, the prompt defined the overall tone and safety expectations, but it did not give very specific guidance about when follow-up questions were actually needed.
 
 ### What Improved or Stayed the Same
 
-This version produced a generally polite and useful customer support draft. However, it was still too vague about when the model should ask for more information, so the model asked for an order number even when the given context was already enough to provide a first-pass reply.
+This version produced a generally polite and useful customer support draft. However, in the delayed-order test case, it was too vague about when the model should ask for more information, so the model asked for an order number even though the message and business context already supported a reasonable first-pass response for human review.
 
 ## Revision 1
 
@@ -41,11 +41,11 @@ If the request is policy-sensitive or risky, write a cautious draft that avoids 
 
 ### What Changed and Why
 
-This revision added an explicit rule telling the model not to ask for more details if the existing business context is already sufficient. The change was made directly in response to the delayed-order test case, where the model unnecessarily asked for an order number.
+This revision added an explicit rule telling the model not to ask for more details if the existing business context is already sufficient. Compared with the initial version, the main difference is that it gives clearer guidance about when follow-up questions are unnecessary. This change was made directly in response to the delayed-order test case, where the model unnecessarily asked for an order number.
 
 ### What Improved or Stayed the Same
 
-This revision better targets the main failure mode from testing and should reduce unnecessary follow-up questions. The rest of the behavior should stay largely the same, including tone, professionalism, and caution around unsupported claims.
+Compared with the initial version, this revision more directly addresses the failure observed during testing. It was designed to reduce unnecessary follow-up questions while keeping the same overall tone, professionalism, and caution around unsupported claims. I did not treat this revision as a complete solution on its own, because the instruction was still fairly general about what counts as information that is truly necessary.
 
 ## Revision 2
 
@@ -65,8 +65,8 @@ If the request is policy-sensitive or risky, write a cautious draft that avoids 
 
 ### What Changed and Why
 
-This revision made the instruction even more specific by emphasizing a **useful first-pass reply** and naming examples of information the model should not request unnecessarily, such as an order number or tracking details. This was designed to make the behavior more reliable and easier to explain in the final report.
+This revision made the instruction more specific by emphasizing a **useful first-pass reply** and naming examples of information the model should not request unnecessarily, such as an order number or tracking details. Compared with Revision 1, the main difference is that it not only says to avoid unnecessary questions, but also gives concrete examples tied to the failure seen in the delayed-order test case. It also makes the human-review boundary more explicit by framing the output as a draft for an agent to review rather than a fully autonomous final response.
 
 ### What Improved or Stayed the Same
 
-This version should better balance directness and caution. Compared with the earlier versions, it is more likely to answer with the information already available while still asking for missing details in truly incomplete cases; the main tradeoff is that it is slightly more prescriptive than the initial prompt, but still simple enough for a small student prototype.
+Compared with the initial version, this revision gives clearer guidance about answering directly when the context is already sufficient. Compared with Revision 1, it is more explicit about the exact kind of unnecessary follow-up that appeared during testing. This makes the final prompt easier to justify in an evaluation-focused assignment and more aligned with the goal of producing a useful first-pass support draft. The main tradeoff is that the prompt becomes slightly more prescriptive and slightly less flexible in rare cases where asking an extra clarifying question might still be reasonable, but for this small workflow that tradeoff is acceptable.
