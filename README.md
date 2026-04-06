@@ -20,6 +20,10 @@ This task is valuable to automate or partially automate because customer support
 
 This workflow is a strong choice for the rest of the assignment because it is realistic, easy to explain, and well suited to a simple Python prototype with at least one LLM API call. The inputs and outputs are both plain text, so implementation is straightforward. It is also easy to create at least five test cases with different customer situations and evaluate the system based on tone, helpfulness, completeness, and accuracy.
 
+## Step 3: Evaluation Set
+
+The evaluation set for this workflow is stored in `eval_set.md`. It includes representative customer support cases such as delayed orders, refund requests, damaged items, missing order information, and policy-sensitive situations.
+
 ## Step 4: Simple Python App
 
 The prototype in `app.py` uses the Google AI Studio Gemini API to generate a draft customer support reply from:
@@ -69,3 +73,8 @@ python app.py --message "My package arrived damaged." --context "Policy: damaged
 - The main configurable prompt is the `SYSTEM_INSTRUCTION` near the top of `app.py`
 - The default model name can also be changed in `app.py`
 - The evaluation set for Step 3 is stored in `eval_set.md`
+- The prompt revision history for Step 5 is stored in `prompts.md`
+
+## Walkthrough Video
+
+Video Link: [Add unlisted YouTube or Vimeo link here]
