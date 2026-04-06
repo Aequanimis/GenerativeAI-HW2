@@ -77,4 +77,5 @@ python app.py --message "My package arrived damaged." --context "Policy: damaged
 
 ## Walkthrough Video
 
-Video Link: [Add unlisted YouTube or Vimeo link here]
+https://youtu.be/x2UMfLAmyM0
+
